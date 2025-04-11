@@ -100,7 +100,7 @@
             <p>از همراهی ارزشمند شما بی‌نهایت سپاسگزاریم.</p>
             <p>دیدگاه‌ها و تجربیات شما، گامی بلند در راستای ارتقای کیفیت این پژوهش علمی خواهد‌ بود.</p>
             <p>از اینکه با صبر و دقت ما را در این مسیر یاری کردید، صمیمانه متشکریم.</p>
- اقتصاد            <p>با آرزوی سلامتی و سربلندی 🌿</p>
+            <p>با آرزوی سلامتی و سربلندی 🌿</p>
             <button onclick="document.getElementById('successModal').style.display='none'">باشه</button>
         </div>
     </div>
@@ -274,7 +274,7 @@
             }
         });
 
-        // ارسال داده‌ها به Webhook.site
+        // ارسال داده‌ها به Formspree
         document.getElementById("competencyForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
@@ -284,14 +284,15 @@
             });
             data.timestamp = new Date().toISOString();
 
-            // URL از Webhook.site
-            const webhookUrl = "https://webhook.site/14e52d0e-0e84-464d-816e-ab9f350f3946";
+            // URL از Formspree که دادی
+            const formspreeUrl = "https://formspree.io/f/xjkyjnbe";
 
             try {
-                const response = await fetch(webhookUrl, {
+                const response = await fetch(formspreeUrl, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        "Accept": "application/json"
                     },
                     body: JSON.stringify(data),
                 });
