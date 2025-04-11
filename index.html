@@ -274,7 +274,7 @@
             }
         });
 
-        // ارسال داده‌ها به Formspree
+        // ارسال داده‌ها به Basin
         document.getElementById("competencyForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
@@ -284,11 +284,11 @@
             });
             data.timestamp = new Date().toISOString();
 
-            // URL از Formspree که دادی
-            const formspreeUrl = "https://formspree.io/f/xjkyjnbe";
+            // URL از Basin که دادی
+            const basinUrl = "https://usebasin.com/f/4ed83bf8ac56";
 
             try {
-                const response = await fetch(formspreeUrl, {
+                const response = await fetch(basinUrl, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
