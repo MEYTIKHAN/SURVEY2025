@@ -274,7 +274,7 @@
             }
         });
 
-        // ارسال داده‌ها به Basin
+        // ارسال داده‌ها به Jotform
         document.getElementById("competencyForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
@@ -284,15 +284,14 @@
             });
             data.timestamp = new Date().toISOString();
 
-            // URL از Basin که دادی
-            const basinUrl = "https://usebasin.com/f/4ed83bf8ac56";
+            // URL از Jotform که دادی
+            const jotformUrl = "https://submit.jotform.com/submit/251005613745046";
 
             try {
-                const response = await fetch(basinUrl, {
+                const response = await fetch(jotformUrl, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "Accept": "application/json"
                     },
                     body: JSON.stringify(data),
                 });
