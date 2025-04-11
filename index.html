@@ -95,13 +95,13 @@
     <!-- Modal موفقیت -->
     <div id="successModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="document.getElementById('successModal').style.display='none'">×</span>
+            <span class="close-btn" onclick="window.location.href='https://meytikhan.github.io/survey-2025/'">×</span>
             <h3>✅ پرسشنامه با موفقیت ثبت شد.</h3>
             <p>از همراهی ارزشمند شما بی‌نهایت سپاسگزاریم.</p>
             <p>دیدگاه‌ها و تجربیات شما، گامی بلند در راستای ارتقای کیفیت این پژوهش علمی خواهد‌ بود.</p>
             <p>از اینکه با صبر و دقت ما را در این مسیر یاری کردید، صمیمانه متشکریم.</p>
             <p>با آرزوی سلامتی و سربلندی 🌿</p>
-            <button onclick="document.getElementById('successModal').style.display='none'">باشه</button>
+            <button onclick="window.location.href='https://meytikhan.github.io/survey-2025/'">باشه</button>
         </div>
     </div>
 
@@ -109,7 +109,8 @@
     <p>لطفاً شایستگی‌های زیر را بررسی کرده و برای هر یک، میزان اثرگذاری بر گروه‌های شغلی (فرماندهی، آموزشی-پژوهشی، ستادی) را با انتخاب یکی از گزینه‌های «خیلی کم» تا «خیلی زیاد» و درجه‌ی اهمیت کلی آن را در بازه‌ی ۰ تا ۱ مشخص کنید.</p>
     <p>لطفاً پیش از شروع، اطلاعات مربوط به «سطح تحصیلات»، «سابقه کاری» و «گروه شغلی» خود را تکمیل فرمایید.</p>
 
-    <form id="competencyForm">
+    <!-- فرم با action به Jotform -->
+    <form id="competencyForm" action="https://submit.jotform.com/submit/251005613745046" method="POST">
         <!-- اطلاعات اولیه -->
         <div class="info-field">
             <label for="educationLevel">سطح تحصیلات:</label>
@@ -160,6 +161,7 @@
             </tbody>
         </table>
         <br>
+        <input type="hidden" name="timestamp" id="timestamp">
         <button type="submit">ارسال</button>
     </form>
 
@@ -239,6 +241,11 @@
             document.getElementById("welcomeModal").style.display = "block";
         };
 
+        // تنظیم timestamp قبل از ارسال فرم
+        document.getElementById("competencyForm").addEventListener("submit", (e) => {
+            document.getElementById("timestamp").value = new Date().toISOString();
+        });
+
         document.addEventListener("keydown", (e) => {
             const activeElement = document.activeElement;
             if (activeElement.tagName === "SELECT") {
@@ -271,41 +278,6 @@
                         allSelects[newIndex].focus();
                     }
                 }
-            }
-        });
-
-        // ارسال داده‌ها به Jotform
-        document.getElementById("competencyForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
-            data.timestamp = new Date().toISOString();
-
-            // URL از Jotform که دادی
-            const jotformUrl = "https://submit.jotform.com/submit/251005613745046";
-
-            try {
-                const response = await fetch(jotformUrl, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(data),
-                });
-
-                if (response.ok) {
-                    console.log("داده‌ها با موفقیت ارسال شدند:", data);
-                    document.getElementById("successModal").style.display = "block";
-                    e.target.reset();
-                } else {
-                    throw new Error("خطا در ارسال داده‌ها");
-                }
-            } catch (error) {
-                console.error("خطا در ارسال:", error);
-                alert("خطایی در ارسال رخ داد: " + error.message);
             }
         });
     </script>
